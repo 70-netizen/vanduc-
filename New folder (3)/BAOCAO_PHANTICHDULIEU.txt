@@ -1,0 +1,152 @@
+
+================================================================================
+                    BÁO CÁO PHÂN TÍCH DỮ LIỆU THANH TOÁN THẺ TÍN DỤNG
+================================================================================
+
+NGÀY BÁO CÁO: 13/05/2026 16:36:05
+
+================================================================================
+1. TỔNG QUAN DỰ ÁN
+================================================================================
+
+Tên dự án:              Phân Tích Dữ Liệu Mặc Định Thanh Toán Thẻ Tín Dụng
+Nguồn dữ liệu:          default of credit card clients.xlsx
+Số khách hàng (toàn bộ): 30,000
+Số khách hàng (sau xử lý): 30,000
+Số đặc trưng:           23
+Tỉ lệ chia (train/test): 70% / 30%
+
+================================================================================
+2. PHÂN TÍCH THỐNG KÊ CƠ BẢN
+================================================================================
+
+2.1 Thống Kê Mặc Định Thanh Toán
+────────────────────────────────
+Tổng khách hàng không mặc định:  23,364 (77.88%)
+Tổng khách hàng mặc định:        6,636 (22.12%)
+
+2.2 Thống Kê Tuổi
+─────────────────
+Tuổi trung bình:        35.5 tuổi
+Tuổi tối thiểu:         21 tuổi
+Tuổi tối đa:            79 tuổi
+Độ lệch chuẩn:          9.22
+
+2.3 Thống Kê Hạn Mức Tín Dụng
+──────────────────────────────
+Hạn mức trung bình:     $167,484
+Hạn mức tối thiểu:      $10,000
+Hạn mức tối đa:         $1,000,000
+Tổng hạn mức:           $5,024,529,680
+
+2.4 Phân Tích Giới Tính
+──────────────────────
+Nữ giới:                18,112 (60.37%)
+Nam giới:               11,888 (39.63%)
+Tỷ lệ mặc định nữ:      20.78%
+Tỷ lệ mặc định nam:     24.17%
+
+2.5 Phân Tích Trình Độ Học Vấn
+────────────────────────────────
+Sau Đại Học          10,585 khách hàng - Tỷ lệ mặc định: 19.23%
+Đại Học              14,030 khách hàng - Tỷ lệ mặc định: 23.73%
+Trung Học            4,917 khách hàng - Tỷ lệ mặc định: 25.16%
+Khác                 123 khách hàng - Tỷ lệ mặc định: 5.69%
+
+
+================================================================================
+3. KẾT QUẢ MÔ HÌNH MÁY HỌC
+================================================================================
+
+3.1 Logistic Regression
+──────────────────────
+Accuracy:               0.8083
+F1 Score:               0.3527
+ROC AUC:                0.7150
+
+Ma Trận Nhầm Lẫn:
+                    Dự Đoán Không    Dự Đoán Có
+Thực Tế Không:          6,805          204
+Thực Tế Có:             1,521          470
+
+3.2 Random Forest
+────────────────
+Accuracy:               0.8119
+F1 Score:               0.4603
+ROC AUC:                0.7570
+
+Ma Trận Nhầm Lẫn:
+                    Dự Đoán Không    Dự Đoán Có
+Thực Tế Không:          6,585          424
+Thực Tế Có:             1,269          722
+
+3.3 So Sánh Mô Hình
+──────────────────
+Mô hình tốt nhất: Random Forest (ROC AUC: 0.7570 > 0.7150)
+
+
+3.4 Top 10 Đặc Trưng Quan Trọng (Random Forest)
+─────────────────────────────────────────────────
+PAY_1           0.100962
+AGE             0.066126
+LIMIT_BAL       0.060522
+BILL_AMT1       0.059541
+BILL_AMT2       0.054003
+BILL_AMT3       0.051062
+BILL_AMT6       0.050524
+BILL_AMT4       0.050016
+BILL_AMT5       0.049597
+PAY_AMT1        0.049497
+
+
+================================================================================
+4. KHUYẾN NGHỊ
+================================================================================
+
+1. QUẢN LÝ RỦI RO
+   - Tập trung giám sát khách hàng có hạn mức tín dụng cao (>100,000)
+   - Những khách hàng với lịch sử thanh toán bất thường cần được theo dõi chặt chẽ
+   - Xây dựng mô hình cảnh báo sớm dựa trên các đặc trưng được xác định
+
+2. PHÂN KHÚC KHÁCH HÀNG
+   - Phát triển chiến lược khác nhau cho từng nhóm trình độ học vấn
+   - Xem xét các yếu tố tuổi khi xây dựng chính sách tín dụng
+   - Giá trị khách hàng nữ và nam có chênh lệch, cần chú ý
+
+3. GIÁ TRỊ MÔ HÌNH
+   - Mô hình hiện tại đạt độ chính xác 81.19%
+   - ROC AUC 0.7570 cho phép phân loại rủi ro tương đối tốt
+   - Có thể triển khai vào quy trình phê duyệt tín dụng
+
+4. CẢI THIỆN TIẾP THEO
+   - Thu thập thêm dữ liệu để cải thiện độ chính xác
+   - Xây dựng các đặc trưng mới dựa trên domain knowledge
+   - Thử nghiệm các mô hình phức tạp hơn (XGBoost, Neural Networks)
+   - Tuning hyperparameter chi tiết
+
+================================================================================
+5. KẾT LUẬN
+================================================================================
+
+Dựa trên phân tích chi tiết, chúng tôi nhận thấy:
+
+1. Tỷ lệ mặc định thanh toán là 22.12%, cho thấy khoảng 22 
+   trong số khách hàng có nguy cơ không thanh toán.
+
+2. Mô hình Random Forest với ROC AUC = 0.7570 là công cụ hữu ích 
+   để dự đoán khách hàng mặc định.
+
+3. Các yếu tố chính ảnh hưởng đến khả năng mặc định bao gồm:
+   - Lịch sử thanh toán (PAY_1, PAY_2, v.v.)
+   - Số tiền hóa đơn tích lũy
+   - Tuổi khách hàng
+   - Hạn mức tín dụng
+
+4. Khuyến nghị áp dụng mô hình vào quy trình quản lý rủi ro 
+   để giảm thiểu tổn thất từ mặc định thanh toán.
+
+================================================================================
+ĐƯỢC TẠO BỞI: Hệ Thống Phân Tích Dữ Liệu Tự Động
+PHIÊN BẢN: 1.0
+NGÀY TẠO: 13/05/2026
+================================================================================
