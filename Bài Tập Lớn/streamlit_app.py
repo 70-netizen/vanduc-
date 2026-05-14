@@ -18,6 +18,7 @@ from sklearn.metrics import (
 )
 from generate_pdf_report import create_pdf_report
 import warnings
+from pathlib import Path
 warnings.filterwarnings('ignore')
 
 st.set_page_config(page_title="Phân Tích Dữ Liệu Tín Dụng", layout="wide")
@@ -25,11 +26,17 @@ st.set_page_config(page_title="Phân Tích Dữ Liệu Tín Dụng", layout="wid
 # Load data
 @st.cache_data
 def load_data():
-    file_path = r'd:\New folder (3)\default of credit card clients.xlsx'
+    base_dir = Path(__file__).resolve().parent
+    file_path = base_dir / 'default of credit card clients.xlsx'
+    if not file_path.exists():
+        st.error(f"❌ Không tìm thấy file dữ liệu: {file_path}")
+        return pd.DataFrame()
     df = pd.read_excel(file_path, sheet_name='Data')
     return df
 
 df = load_data()
+if df.empty:
+    st.stop()
 
 # Xử lý dữ liệu
 df = df.iloc[1:]  # Bỏ hàng header thứ 2

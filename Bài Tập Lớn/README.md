@@ -70,9 +70,11 @@ streamlit run streamlit_app.py
 ## 📂 Cấu Trúc Thư Mục
 
 ```
-d:\New folder (3)\
+.\
 ├── default of credit card clients.xlsx  # Dữ liệu gốc
 ├── streamlit_app.py                     # Ứng dụng chính
+├── generate_report.py                   # Script tạo báo cáo txt
+├── generate_pdf_report.py               # Module tạo báo cáo PDF
 ├── requirements.txt                     # Danh sách thư viện
 └── README.md                            # Hướng dẫn này
 ```

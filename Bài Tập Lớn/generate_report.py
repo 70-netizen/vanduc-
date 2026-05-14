@@ -17,11 +17,15 @@ from sklearn.metrics import (
     f1_score,
 )
 import warnings
+from pathlib import Path
 warnings.filterwarnings('ignore')
 
 # ==================== LOAD DỮ LIỆU ====================
 print("📂 Đang tải dữ liệu...")
-file_path = r'd:\New folder (3)\default of credit card clients.xlsx'
+base_dir = Path(__file__).resolve().parent
+file_path = base_dir / 'default of credit card clients.xlsx'
+if not file_path.exists():
+    raise FileNotFoundError(f"Không tìm thấy file dữ liệu: {file_path}")
 df = pd.read_excel(file_path, sheet_name='Data')
 
 # Xử lý dữ liệu
@@ -246,7 +250,7 @@ NGÀY TẠO: {pd.Timestamp.now().strftime('%d/%m/%Y')}
 """
 
 # ==================== LƯU BÁO CÁO ====================
-report_path = r'd:\New folder (3)\BAOCAO_PHANTICHDULIEU.txt'
+report_path = base_dir / 'BAOCAO_PHANTICHDULIEU.txt'
 with open(report_path, 'w', encoding='utf-8') as f:
     f.write(report)
 
